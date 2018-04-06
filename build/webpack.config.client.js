@@ -1,6 +1,9 @@
 const path = require('path');
 const HTMLPlugin = require('html-webpack-plugin');
-module.exports = {
+
+const isDev = process.env.NODE_ENV === 'development';
+
+const config = {
   target: 'node',//执行环境
   entry:{
     app: path.join(__dirname,'../client/app.js')
@@ -31,3 +34,17 @@ module.exports = {
     })
   ]
 }
+
+if(isDev){
+  config.devServer = {
+    host: '0.0.0.0',
+    port: '8888',
+    contentBase: path.join(__dirname,'../dist'),
+    host: true,
+    overlay:{
+      errors: true
+    }
+  }
+}
+
+module.exports = config;
