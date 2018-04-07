@@ -40,7 +40,7 @@ if(isDev){
     host: '0.0.0.0',
     port: '8888',
     contentBase: path.join(__dirname,'../dist'),
-    host: true,
+    hot: true,
     overlay:{
       errors: true
     }
