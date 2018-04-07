@@ -1,0 +1,24 @@
+{
+  # 解析
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  # es版本
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "extends": "airbnb",
+  "rules": {
+    # 不需要写分号
+    "semi": [0],
+    "react/jsx-filename-extension": [0],
+    "jsx-a11y/anchor-is-valid": [0],
+    "react/require-default-props": [0],
+    "arrow-body-style": [0],
+    "no-param-reassign": [0]
+  }
+}
