@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HTMLPlugin = require('html-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -11,7 +12,7 @@ const config = {
   output:{
     filename:'[name].[hash].js',
     path: path.join(__dirname,'../dist'),
-    publicPath:'/public',
+    publicPath:'/public/',
   },
   module:{
     rules:[
@@ -28,6 +29,7 @@ const config = {
       }
     ]
   },
+  target: 'web',
   plugins:[
     new HTMLPlugin({
       template: path.join(__dirname,'../client/template.html')
@@ -36,15 +38,27 @@ const config = {
 }
 
 if(isDev){
+  config.entry = {
+    app:[
+      'react-hot-loader/patch',
+       path.join(__dirname,'../client/app.js')
+    ]
+  }
   config.devServer = {
     host: '0.0.0.0',
     port: '8888',
     contentBase: path.join(__dirname,'../dist'),
-    hot: true,
+    hot: true,// 使用热模块更新，必须安装插件
+    open : true,// 自动在启动后打开浏览器
     overlay:{
       errors: true
+    },
+    publicPath:'/public',//访问所有dist静态路径加路径
+    historyApiFallback:{//配置对应关系
+      index:'/public/index.html'//指定dist/index.html
     }
   }
+  config.plugins.push(new webpack.HotModuleReplacementPlugin)
 }
 
 module.exports = config;
